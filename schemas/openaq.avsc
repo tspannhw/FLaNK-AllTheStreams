@@ -17,7 +17,7 @@
     "type": ["null","string"]
    },
    {
-    "name": "apigw-requestid",
+    "name": "apigwrequestid",
     "type": ["null","string"]
    },
    {
@@ -48,7 +48,7 @@
     "type": ["null","string"]
    },  
    {
-    "name": "server-timing",
+    "name": "servertiming",
     "type": ["null","string"]
    },   
    {
