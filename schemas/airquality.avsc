@@ -2,14 +2,15 @@
  "name":"airquality",
  "fields":[
   { 
-    "name" : "DateObserved", "type" : ["null", "string"]}, 
-    "name" : "HourObserved", "type" : ["null", "string"]}, 
-    "name" : "LocalTimeZone", "type" : ["null", "string"]}, 
-    "name" : "ReportingArea", "type" : ["null", "string"]}, 
-    "name" : "StateCode", "type" : ["null", "string"]}, 
-    "name" : "Latitude", "type" : ["double"]}, 
-    "name" : "Longitude", "type" : ["double"]}, 
-    "name" : "ParameterName", "type" : ["null", "string"]}, 
-    "name" : "AQI", "type" : ["null", "string"]}
-]
+    "name" : "DateObserved", "type" : ["null", "string"], 
+    "name" : "HourObserved", "type" : ["null", "string"], 
+    "name" : "LocalTimeZone", "type" : ["null", "string"], 
+    "name" : "ReportingArea", "type" : ["null", "string"], 
+    "name" : "StateCode", "type" : ["null", "string"], 
+    "name" : "Latitude", "type" : ["double"], 
+    "name" : "Longitude", "type" : ["double"], 
+    "name" : "ParameterName", "type" : ["null", "string"], 
+    "name" : "AQI", "type" : ["null", "string"]
+  }
+  ]
 }
