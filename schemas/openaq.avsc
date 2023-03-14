@@ -17,10 +17,6 @@
     "type": ["null","string"]
    },
    {
-    "name": "apigwrequestid",
-    "type": ["null","string"]
-   },
-   {
     "name": "latitude",
     "type": ["double"]
    },
@@ -47,10 +43,6 @@
     "name": "parameter",
     "type": ["null","string"]
    },  
-   {
-    "name": "servertiming",
-    "type": ["null","string"]
-   },   
    {
     "name": "value",
     "type": ["null","string"]
