@@ -1,0 +1,59 @@
+{
+  "type": "record",
+  "name": "openaq",
+  "fields": [
+  { "name" : "uuid", "type" : ["null", "string"]}, 
+   { "name" : "ts", "type" : ["long"], "default": 1, "logicalType": "timestamp-millis"},
+   {
+    "name": "unit",
+    "type": ["null","string"]
+   },
+   {
+    "name": "location",
+    "type": ["null","string"]
+   },
+   {
+    "name": "lastUpdated",
+    "type": ["null","string"]
+   },
+   {
+    "name": "apigw-requestid",
+    "type": ["null","string"]
+   },
+   {
+    "name": "latitude",
+    "type": ["double"]
+   },
+   {
+    "name": "longitude",
+    "type": ["double"]
+   },
+   {
+    "name": "date",
+    "type": ["null","string"]
+   },
+   {
+    "name": "country",
+    "type": ["null","string"]
+   },
+   {
+    "name": "city",
+    "type": ["null","string"]
+   },
+   {
+    "name": "filename",
+    "type": ["null","string"]
+   },    {
+    "name": "parameter",
+    "type": ["null","string"]
+   },  
+   {
+    "name": "server-timing",
+    "type": ["null","string"]
+   },   
+   {
+    "name": "value",
+    "type": ["null","string"]
+   }
+]
+}
