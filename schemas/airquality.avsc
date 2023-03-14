@@ -1,1 +1,15 @@
-{"type":"record","name":"Observation","namespace":"dev.datainmotion.airquality.model","fields":[{"name":"additionalProperties","type":["null",{"type":"map","values":{"type":"record","name":"Object","namespace":"java.lang","fields":[]}}],"default":null},{"name":"aqi","type":["null","int"],"default":null},{"name":"category","type":["null",{"type":"record","name":"Category","fields":[{"name":"additionalProperties","type":["null",{"type":"map","values":"java.lang.Object"}],"default":null},{"name":"name","type":["null","string"],"default":null},{"name":"number","type":["null","int"],"default":null}]}],"default":null},{"name":"dateObserved","type":["null","string"],"default":null},{"name":"hourObserved","type":["null","int"],"default":null},{"name":"latitude","type":["null","double"],"default":null},{"name":"localTimeZone","type":["null","string"],"default":null},{"name":"longitude","type":["null","double"],"default":null},{"name":"parameterName","type":["null","string"],"default":null},{"name":"reportingArea","type":["null","string"],"default":null},{"name":"stateCode","type":["null","string"],"default":null}]}
+{"type":"record",
+ "name":"airquality",
+ "fields":[
+  { 
+    "name" : "DateObserved", "type" : ["null", "string"]}, 
+    "name" : "HourObserved", "type" : ["null", "string"]}, 
+    "name" : "LocalTimeZone", "type" : ["null", "string"]}, 
+    "name" : "ReportingArea", "type" : ["null", "string"]}, 
+    "name" : "StateCode", "type" : ["null", "string"]}, 
+    "name" : "Latitude", "type" : ["null", "string"]}, 
+    "name" : "Longitude", "type" : ["null", "string"]}, 
+    "name" : "ParameterName", "type" : ["null", "string"]}, 
+    "name" : "AQI", "type" : ["null", "string"]}
+]
+}
