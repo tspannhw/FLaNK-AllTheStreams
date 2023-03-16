@@ -1,0 +1,31 @@
+{ 
+ "type": "record",
+ "name": "finnhubstocks",
+ "fields": [
+  {
+   "name": "symbol",
+   "type":
+  "type": ["null","string"]
+  },
+  {
+   "name": "uuid",
+   "type":
+  "type": ["null","string"]
+  },
+  {
+   "name": "tradeconditions",
+   "type":
+  "type": ["null","string"]
+  },
+{
+    "name": "volume",
+    "type": ["double"]
+   },
+         {
+    "name": "price",
+    "type": ["double"]
+   },
+{ "name" : "ts", "type" : ["long"], "default": 1, "logicalType": "timestamp-millis"}
+   { "name" : "currentts", "type" : ["long"], "default": 1, "logicalType": "timestamp-millis"}
+ ]
+}
