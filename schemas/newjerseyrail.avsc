@@ -1,0 +1,40 @@
+{
+ "type": "record",
+ "name": "newjerseyrail",
+ "fields": [
+  {
+   "name": "title",
+   "type": ["string","null"]
+  },
+  {
+   "name": "description",
+   "type": ["string","null"]
+  },
+  {
+   "name": "pubDate",
+   "type": ["string","null"]
+  },
+    {
+   "name": "advisoryAlert",
+   "type": ["string","null"]
+  },
+      {
+   "name": "companyname",
+   "type": ["string","null"]
+  },
+      {
+   "name": "servicename",
+   "type": ["string","null"]
+  },  
+  {
+   "name": "guid",
+   "type": ["string","null"]
+  },
+  {
+   "name": "link",
+   "type": ["string","null"]
+  },
+  { "name" : "uuid", "type" : ["null", "string"]}, 
+{ "name" : "ts", "type" : ["long"], "default": 1, "logicalType": "timestamp-millis"}
+ ]
+}
