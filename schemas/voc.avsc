@@ -1,0 +1,74 @@
+  {
+ "type": "record",
+ "name": "voc",
+ "fields": [
+  {
+   "name": "uuid",
+   "type": ["string","null"]
+  },
+    {
+   "name": "rowid",
+   "type": ["string","null"]
+  },
+  {
+   "name": "systemtime",
+   "type": ["string","null"]
+  },
+  {
+   "name": "cpu",
+   "type": ["double","null"]
+  },
+  {
+   "name": "memory",
+   "type": ["double","null"]
+  },
+    {
+   "name": "ipaddress",
+   "type": ["string","null"]
+  },  
+  {
+   "name": "macaddress",
+   "type": ["string","null"]
+  },
+  {
+   "name": "endtime",
+   "type": ["string","null"]
+  },
+  {
+   "name": "runtime",
+   "type": ["int","null"]
+  },
+  {
+   "name": "ts",
+   "type": ["int","null"]
+  },
+  {
+   "name": "starttime",
+   "type": ["string","null"]
+  },
+  {
+   "name": "diskusage",
+   "type": ["string","null"]
+  },
+  {
+   "name": "te",
+   "type": ["string","null"]
+  },
+  {
+   "name": "equivalentco2ppm",
+   "type": ["double","null"]
+  },
+  {
+   "name": "totalvocppb",
+   "type": ["double","null"]
+  },
+  {
+   "name": "host",
+   "type": ["string","null"]
+  },
+  {
+   "name": "hostname",
+   "type": ["string","null"]
+  }
+ ]
+}
