@@ -45,8 +45,7 @@
    },
            {
     "name": "station_id",
-    "type": ["double","null"],
-    "default": 0
+    "type": ["string","null"]
    },
            {
     "name": "is_renting",
