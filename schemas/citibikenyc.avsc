@@ -1,0 +1,79 @@
+{
+ "type": "record",
+ "name": "citibikenyc",
+ "fields": [
+  {
+   "name": "eightd_active_station_services",
+   "type": ["string","null"]
+  },
+  {
+   "name": "eightd_has_available_keys",
+   "type": ["string","null"]
+  },
+  {
+   "name": "valet",
+   "type": ["string","null"]
+  },
+   {
+   "name": "station_status",
+   "type": ["string","null"]
+  },
+   {
+    "name": "last_reported",
+    "type": ["double"],
+    "default": 0
+   },
+        {
+    "name": "is_installed",
+    "type": ["double"],
+    "default": 0
+   },
+           {
+    "name": "num_docks_disabled",
+    "type": ["double"],
+    "default": 0
+   },
+           {
+    "name": "num_ebikes_available",
+    "type": ["double"],
+    "default": 0
+   },
+           {
+    "name": "num_bikes_available",
+    "type": ["double"],
+    "default": 0
+   },
+           {
+    "name": "station_id",
+    "type": ["double"],
+    "default": 0
+   },
+           {
+    "name": "is_renting",
+    "type": ["double"],
+    "default": 0
+   },
+           {
+    "name": "is_returning",
+    "type": ["double"],
+    "default": 0
+   },
+           {
+    "name": "num_docks_available",
+    "type": ["double"],
+    "default": 0
+   },
+           {
+    "name": "num_bikes_disabled",
+    "type": ["double"],
+    "default": 0
+   },
+           {
+    "name": "legacy_id",
+    "type": ["double"],
+    "default": 0
+   },
+  { "name" : "uuid", "type" : ["null", "string"]}, 
+{ "name" : "ts", "type" : ["long"], "default": 1, "logicalType": "timestamp-millis"}
+ ]
+}
