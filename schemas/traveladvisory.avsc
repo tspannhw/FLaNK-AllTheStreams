@@ -1,0 +1,65 @@
+{
+  "type": "record",
+  "name": "traveladvisory",
+  "namespace": "com.dataflowdeveloper",
+  "fields": [
+    {
+      "name": "title",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    {
+      "name": "pubdate",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    {
+      "name": "link",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    {
+      "name": "guid",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    {
+      "name": "advisoryId",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    {
+      "name": "domain",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    {
+      "name": "category",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    {
+      "name": "description",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    { "name" : "uuid", "type" : ["null", "string"]}, 
+    { "name" : "ts", "type" : ["long"], "default": 1, "logicalType": "timestamp-millis"}
+  ]
+}
