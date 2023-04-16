@@ -1,0 +1,19 @@
+{"type":"record",
+ "name":"airnowobservation",
+ "fields":[
+  { 
+    "name" : "DateObserved", "type" : ["null", "string"], 
+    "name" : "HourObserved", "type" : ["null", "string"], 
+    "name" : "LocalTimeZone", "type" : ["null", "string"], 
+    "name" : "ReportingArea", "type" : ["null", "string"], 
+    "name" : "StateCode", "type" : ["null", "string"], 
+    "name" : "Latitude", "type" : ["double"], 
+    "name" : "Longitude", "type" : ["double"], 
+    "name" : "ParameterName", "type" : ["null", "string"], 
+    "name" : "AQI", "type" : ["null", "string"],
+    "name" : "CategoryNumber", "type" : ["null", "string"], 
+    "name" : "CategoryName", "type" : ["null", "string"], 
+    "name" : "uuid", "type" : ["null", "string"], 
+    "name" : "ts", "type" : ["long"], "default": 1, "logicalType": "timestamp-millis"}           
+  ]
+}
