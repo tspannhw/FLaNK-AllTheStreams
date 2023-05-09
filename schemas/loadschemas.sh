@@ -1,6 +1,6 @@
 # Load Schemas into Schema Registry
 
-for f in *.avsc
+for f in /opt/demo/FLaNK-AllTheStreams/schemas/*.avsc
 do 
 
 echo "Uploading Schema File $f"
