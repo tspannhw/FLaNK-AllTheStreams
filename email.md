@@ -7,3 +7,5 @@ elsewhere.
 
 
 
+https://medium.com/@tspann/using-nifi-as-an-smtp-email-test-server-713677ac5b67
+
