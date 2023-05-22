@@ -1,0 +1,328 @@
+{
+  "revision" : {
+    "version" : 0
+  },
+  "id" : "9ed98798-0179-1000-0000-000051bc57e9",
+  "uri" : "http://edge2ai-1.dim.local:8080/nifi-api/controller-services/9ed98798-0179-1000-0000-000051bc57e9",
+  "permissions" : {
+    "canRead" : true,
+    "canWrite" : true
+  },
+  "bulletins" : [ ],
+  "component" : {
+    "id" : "9ed98798-0179-1000-0000-000051bc57e9",
+    "name" : "KafkaRecordSink_2_6",
+    "type" : "org.apache.nifi.record.sink.kafka.KafkaRecordSink_2_6",
+    "bundle" : {
+      "group" : "org.apache.nifi",
+      "artifact" : "nifi-kafka-2-6-nar",
+      "version" : "1.13.2.2.1.1.0-13"
+    },
+    "controllerServiceApis" : [ {
+      "type" : "org.apache.nifi.record.sink.RecordSinkService",
+      "bundle" : {
+        "group" : "org.apache.nifi",
+        "artifact" : "nifi-standard-services-api-nar",
+        "version" : "1.13.2.2.1.1.0-13"
+      }
+    } ],
+    "comments" : "",
+    "state" : "ENABLED",
+    "persistsState" : false,
+    "restricted" : false,
+    "deprecated" : false,
+    "multipleVersionsAvailable" : false,
+    "properties" : {
+      "bootstrap.servers" : "edge2ai-1.dim.local:9092",
+      "topic" : "bulletins",
+      "record-sink-record-writer" : "9eda728b-0179-1000-0000-000026e48977",
+      "acks" : "0",
+      "message-header-encoding" : "UTF-8",
+      "security.protocol" : "PLAINTEXT",
+      "max.request.size" : "1 MB",
+      "ack.wait.time" : "15 secs",
+      "max.block.ms" : "15 sec",
+      "compression.type" : "none",
+      "client.id" : "nifi-bulletin-writer"
+    },
+    "descriptors" : {
+      "bootstrap.servers" : {
+        "name" : "bootstrap.servers",
+        "displayName" : "Kafka Brokers",
+        "description" : "A comma-separated list of known Kafka Brokers in the format <host>:<port>",
+        "defaultValue" : "localhost:9092",
+        "required" : true,
+        "sensitive" : false,
+        "dynamic" : false,
+        "supportsEl" : true,
+        "expressionLanguageScope" : "Variable Registry Only",
+        "dependencies" : [ ]
+      },
+      "topic" : {
+        "name" : "topic",
+        "displayName" : "Topic Name",
+        "description" : "The name of the Kafka Topic to publish to.",
+        "required" : true,
+        "sensitive" : false,
+        "dynamic" : false,
+        "supportsEl" : true,
+        "expressionLanguageScope" : "Variable Registry Only",
+        "dependencies" : [ ]
+      },
+      "record-sink-record-writer" : {
+        "name" : "record-sink-record-writer",
+        "displayName" : "Record Writer",
+        "description" : "Specifies the Controller Service to use for writing out the records.",
+        "allowableValues" : [ {
+          "allowableValue" : {
+            "displayName" : "JsonRecordSetWriter",
+            "value" : "9eda728b-0179-1000-0000-000026e48977"
+          },
+          "canRead" : true
+        } ],
+        "required" : true,
+        "sensitive" : false,
+        "dynamic" : false,
+        "supportsEl" : false,
+        "expressionLanguageScope" : "Not Supported",
+        "identifiesControllerService" : "org.apache.nifi.serialization.RecordSetWriterFactory",
+        "identifiesControllerServiceBundle" : {
+          "group" : "org.apache.nifi",
+          "artifact" : "nifi-standard-services-api-nar",
+          "version" : "1.13.2.2.1.1.0-13"
+        },
+        "dependencies" : [ ]
+      },
+      "acks" : {
+        "name" : "acks",
+        "displayName" : "Delivery Guarantee",
+        "description" : "Specifies the requirement for guaranteeing that a message is sent to Kafka. Corresponds to Kafka's 'acks' property.",
+        "defaultValue" : "0",
+        "allowableValues" : [ {
+          "allowableValue" : {
+            "displayName" : "Best Effort",
+            "value" : "0",
+            "description" : "Records are considered 'transmitted successfully' after successfully writing the content to a Kafka node, without waiting for a response. This provides the best performance but may result in data loss."
+          },
+          "canRead" : true
+        }, {
+          "allowableValue" : {
+            "displayName" : "Guarantee Single Node Delivery",
+            "value" : "1",
+            "description" : "Records are considered 'transmitted successfully' if the message is received by a single Kafka node, whether or not it is replicated. This is faster than <Guarantee Replicated Delivery> but can result in data loss if a Kafka node crashes."
+          },
+          "canRead" : true
+        }, {
+          "allowableValue" : {
+            "displayName" : "Guarantee Replicated Delivery",
+            "value" : "all",
+            "description" : "Records are considered 'transmitted unsuccessfully' unless the message is replicated to the appropriate number of Kafka Nodes according to the Topic configuration."
+          },
+          "canRead" : true
+        } ],
+        "required" : true,
+        "sensitive" : false,
+        "dynamic" : false,
+        "supportsEl" : false,
+        "expressionLanguageScope" : "Not Supported",
+        "dependencies" : [ ]
+      },
+      "message-header-encoding" : {
+        "name" : "message-header-encoding",
+        "displayName" : "Message Header Encoding",
+        "description" : "For any attribute that is added as a message header, as configured via the <Attributes to Send as Headers> property, this property indicates the Character Encoding to use for serializing the headers.",
+        "defaultValue" : "UTF-8",
+        "required" : false,
+        "sensitive" : false,
+        "dynamic" : false,
+        "supportsEl" : false,
+        "expressionLanguageScope" : "Not Supported",
+        "dependencies" : [ ]
+      },
+      "security.protocol" : {
+        "name" : "security.protocol",
+        "displayName" : "Security Protocol",
+        "description" : "Protocol used to communicate with brokers. Corresponds to Kafka's 'security.protocol' property.",
+        "defaultValue" : "PLAINTEXT",
+        "allowableValues" : [ {
+          "allowableValue" : {
+            "displayName" : "PLAINTEXT",
+            "value" : "PLAINTEXT",
+            "description" : "PLAINTEXT"
+          },
+          "canRead" : true
+        }, {
+          "allowableValue" : {
+            "displayName" : "SSL",
+            "value" : "SSL",
+            "description" : "SSL"
+          },
+          "canRead" : true
+        }, {
+          "allowableValue" : {
+            "displayName" : "SASL_PLAINTEXT",
+            "value" : "SASL_PLAINTEXT",
+            "description" : "SASL_PLAINTEXT"
+          },
+          "canRead" : true
+        }, {
+          "allowableValue" : {
+            "displayName" : "SASL_SSL",
+            "value" : "SASL_SSL",
+            "description" : "SASL_SSL"
+          },
+          "canRead" : true
+        } ],
+        "required" : true,
+        "sensitive" : false,
+        "dynamic" : false,
+        "supportsEl" : false,
+        "expressionLanguageScope" : "Not Supported",
+        "dependencies" : [ ]
+      },
+      "kerberos-credentials-service" : {
+        "name" : "kerberos-credentials-service",
+        "displayName" : "Kerberos Credentials Service",
+        "description" : "Specifies the Kerberos Credentials Controller Service that should be used for authenticating with Kerberos",
+        "allowableValues" : [ ],
+        "required" : false,
+        "sensitive" : false,
+        "dynamic" : false,
+        "supportsEl" : false,
+        "expressionLanguageScope" : "Not Supported",
+        "identifiesControllerService" : "org.apache.nifi.kerberos.KerberosCredentialsService",
+        "identifiesControllerServiceBundle" : {
+          "group" : "org.apache.nifi",
+          "artifact" : "nifi-standard-services-api-nar",
+          "version" : "1.13.2.2.1.1.0-13"
+        },
+        "dependencies" : [ ]
+      },
+      "sasl.kerberos.service.name" : {
+        "name" : "sasl.kerberos.service.name",
+        "displayName" : "Kerberos Service Name",
+        "description" : "The service name that matches the primary name of the Kafka server configured in the broker JAAS file.This can be defined either in Kafka's JAAS config or in Kafka's config. Corresponds to Kafka's 'security.protocol' property.It is ignored unless one of the SASL options of the <Security Protocol> are selected.",
+        "required" : false,
+        "sensitive" : false,
+        "dynamic" : false,
+        "supportsEl" : true,
+        "expressionLanguageScope" : "Variable Registry Only",
+        "dependencies" : [ ]
+      },
+      "ssl.context.service" : {
+        "name" : "ssl.context.service",
+        "displayName" : "SSL Context Service",
+        "description" : "Specifies the SSL Context Service to use for communicating with Kafka.",
+        "allowableValues" : [ ],
+        "required" : false,
+        "sensitive" : false,
+        "dynamic" : false,
+        "supportsEl" : false,
+        "expressionLanguageScope" : "Not Supported",
+        "identifiesControllerService" : "org.apache.nifi.ssl.SSLContextService",
+        "identifiesControllerServiceBundle" : {
+          "group" : "org.apache.nifi",
+          "artifact" : "nifi-standard-services-api-nar",
+          "version" : "1.13.2.2.1.1.0-13"
+        },
+        "dependencies" : [ ]
+      },
+      "max.request.size" : {
+        "name" : "max.request.size",
+        "displayName" : "Max Request Size",
+        "description" : "The maximum size of a request in bytes. Corresponds to Kafka's 'max.request.size' property and defaults to 1 MB (1048576).",
+        "defaultValue" : "1 MB",
+        "required" : true,
+        "sensitive" : false,
+        "dynamic" : false,
+        "supportsEl" : false,
+        "expressionLanguageScope" : "Not Supported",
+        "dependencies" : [ ]
+      },
+      "ack.wait.time" : {
+        "name" : "ack.wait.time",
+        "displayName" : "Acknowledgment Wait Time",
+        "description" : "After sending a message to Kafka, this indicates the amount of time that we are willing to wait for a response from Kafka. If Kafka does not acknowledge the message within this time period, the FlowFile will be routed to 'failure'.",
+        "defaultValue" : "5 secs",
+        "required" : true,
+        "sensitive" : false,
+        "dynamic" : false,
+        "supportsEl" : false,
+        "expressionLanguageScope" : "Not Supported",
+        "dependencies" : [ ]
+      },
+      "max.block.ms" : {
+        "name" : "max.block.ms",
+        "displayName" : "Max Metadata Wait Time",
+        "description" : "The amount of time publisher will wait to obtain metadata or wait for the buffer to flush during the 'send' call before failing the entire 'send' call. Corresponds to Kafka's 'max.block.ms' property",
+        "defaultValue" : "5 sec",
+        "required" : true,
+        "sensitive" : false,
+        "dynamic" : false,
+        "supportsEl" : true,
+        "expressionLanguageScope" : "Variable Registry Only",
+        "dependencies" : [ ]
+      },
+      "compression.type" : {
+        "name" : "compression.type",
+        "displayName" : "Compression Type",
+        "description" : "This parameter allows you to specify the compression codec for all data generated by this producer.",
+        "defaultValue" : "none",
+        "allowableValues" : [ {
+          "allowableValue" : {
+            "displayName" : "none",
+            "value" : "none"
+          },
+          "canRead" : true
+        }, {
+          "allowableValue" : {
+            "displayName" : "gzip",
+            "value" : "gzip"
+          },
+          "canRead" : true
+        }, {
+          "allowableValue" : {
+            "displayName" : "snappy",
+            "value" : "snappy"
+          },
+          "canRead" : true
+        }, {
+          "allowableValue" : {
+            "displayName" : "lz4",
+            "value" : "lz4"
+          },
+          "canRead" : true
+        } ],
+        "required" : true,
+        "sensitive" : false,
+        "dynamic" : false,
+        "supportsEl" : false,
+        "expressionLanguageScope" : "Not Supported",
+        "dependencies" : [ ]
+      },
+      "client.id" : {
+        "name" : "client.id",
+        "displayName" : "client.id",
+        "description" : "Specifies the value for 'client.id' Kafka Configuration.",
+        "required" : false,
+        "sensitive" : false,
+        "dynamic" : true,
+        "supportsEl" : true,
+        "expressionLanguageScope" : "Variable Registry Only",
+        "dependencies" : [ ]
+      }
+    },
+    "referencingComponents" : [ ],
+    "validationErrors" : [ ],
+    "validationStatus" : "VALID",
+    "extensionMissing" : false
+  },
+  "operatePermissions" : {
+    "canRead" : true,
+    "canWrite" : true
+  },
+  "status" : {
+    "runStatus" : "ENABLED",
+    "validationStatus" : "VALID"
+  }
+}

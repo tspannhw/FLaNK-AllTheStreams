@@ -1,0 +1,153 @@
+{
+  "revision" : {
+    "clientId" : "90632727-0179-1000-d525-59f1ce395ce2",
+    "version" : 5
+  },
+  "id" : "8f579c93-0179-1000-0000-00000a026509",
+  "uri" : "http://edge2ai-1.dim.local:8080/nifi-api/reporting-tasks/8f579c93-0179-1000-0000-00000a026509",
+  "permissions" : {
+    "canRead" : true,
+    "canWrite" : true
+  },
+  "bulletins" : [ ],
+  "component" : {
+    "id" : "8f579c93-0179-1000-0000-00000a026509",
+    "name" : "QueryNiFiReportingTask",
+    "type" : "org.apache.nifi.reporting.sql.QueryNiFiReportingTask",
+    "bundle" : {
+      "group" : "org.apache.nifi",
+      "artifact" : "nifi-sql-reporting-nar",
+      "version" : "1.13.2.2.1.1.0-13"
+    },
+    "state" : "RUNNING",
+    "comments" : "",
+    "persistsState" : false,
+    "restricted" : false,
+    "deprecated" : false,
+    "multipleVersionsAvailable" : false,
+    "schedulingPeriod" : "5 mins",
+    "schedulingStrategy" : "TIMER_DRIVEN",
+    "defaultSchedulingPeriod" : {
+      "TIMER_DRIVEN" : "0 sec",
+      "CRON_DRIVEN" : "* * * * * ?"
+    },
+    "properties" : {
+      "sql-reporting-query" : "SELECT * FROM PROCESSOR_STATUS\nWHERE NAME = 'Set Sensor Values'",
+      "sql-reporting-record-sink" : "8f582328-0179-1000-0000-0000638e2094",
+      "sql-reporting-include-zero-record-results" : "false",
+      "dbf-default-precision" : "10",
+      "dbf-default-scale" : "0"
+    },
+    "descriptors" : {
+      "sql-reporting-query" : {
+        "name" : "sql-reporting-query",
+        "displayName" : "SQL Query",
+        "description" : "SQL SELECT statement specifies which tables to query and how data should be filtered/transformed. SQL SELECT can select from the CONNECTION_STATUS, PROCESSOR_STATUS, BULLETINS, PROCESS_GROUP_STATUS, JVM_METRICS, CONNECTION_STATUS_PREDICTIONS, or PROVENANCE tables. Note that the CONNECTION_STATUS_PREDICTIONS table is not available for querying if analytics are not enabled).",
+        "required" : true,
+        "sensitive" : false,
+        "dynamic" : false,
+        "supportsEl" : true,
+        "expressionLanguageScope" : "Variable Registry Only",
+        "dependencies" : [ ]
+      },
+      "sql-reporting-record-sink" : {
+        "name" : "sql-reporting-record-sink",
+        "displayName" : "Record Destination Service",
+        "description" : "Specifies the Controller Service to use for writing out the query result records to some destination.",
+        "allowableValues" : [ {
+          "allowableValue" : {
+            "displayName" : "KafkaRecordSink_2_6",
+            "value" : "814968cf-0179-1000-0000-0000217d5a1a"
+          },
+          "canRead" : true
+        }, {
+          "allowableValue" : {
+            "displayName" : "KafkaRecordSink_2_6 JSON",
+            "value" : "8f3dee52-0179-1000-0000-00004f8b817c"
+          },
+          "canRead" : true
+        }, {
+          "allowableValue" : {
+            "displayName" : "KafkaRecordSink_2_6 JSON 2",
+            "value" : "8f582328-0179-1000-0000-0000638e2094"
+          },
+          "canRead" : true
+        } ],
+        "required" : true,
+        "sensitive" : false,
+        "dynamic" : false,
+        "supportsEl" : false,
+        "expressionLanguageScope" : "Not Supported",
+        "identifiesControllerService" : "org.apache.nifi.record.sink.RecordSinkService",
+        "identifiesControllerServiceBundle" : {
+          "group" : "org.apache.nifi",
+          "artifact" : "nifi-standard-services-api-nar",
+          "version" : "1.13.2.2.1.1.0-13"
+        },
+        "dependencies" : [ ]
+      },
+      "sql-reporting-include-zero-record-results" : {
+        "name" : "sql-reporting-include-zero-record-results",
+        "displayName" : "Include Zero Record Results",
+        "description" : "When running the SQL statement, if the result has no data, this property specifies whether or not the empty result set will be transmitted.",
+        "defaultValue" : "false",
+        "allowableValues" : [ {
+          "allowableValue" : {
+            "displayName" : "true",
+            "value" : "true"
+          },
+          "canRead" : true
+        }, {
+          "allowableValue" : {
+            "displayName" : "false",
+            "value" : "false"
+          },
+          "canRead" : true
+        } ],
+        "required" : true,
+        "sensitive" : false,
+        "dynamic" : false,
+        "supportsEl" : false,
+        "expressionLanguageScope" : "Not Supported",
+        "dependencies" : [ ]
+      },
+      "dbf-default-precision" : {
+        "name" : "dbf-default-precision",
+        "displayName" : "Default Decimal Precision",
+        "description" : "When a DECIMAL/NUMBER value is written as a 'decimal' Avro logical type, a specific 'precision' denoting number of available digits is required. Generally, precision is defined by column data type definition or database engines default. However undefined precision (0) can be returned from some database engines. 'Default Decimal Precision' is used when writing those undefined precision numbers.",
+        "defaultValue" : "10",
+        "required" : true,
+        "sensitive" : false,
+        "dynamic" : false,
+        "supportsEl" : true,
+        "expressionLanguageScope" : "Variable Registry Only",
+        "dependencies" : [ ]
+      },
+      "dbf-default-scale" : {
+        "name" : "dbf-default-scale",
+        "displayName" : "Default Decimal Scale",
+        "description" : "When a DECIMAL/NUMBER value is written as a 'decimal' Avro logical type, a specific 'scale' denoting number of available decimal digits is required. Generally, scale is defined by column data type definition or database engines default. However when undefined precision (0) is returned, scale can also be uncertain with some database engines. 'Default Decimal Scale' is used when writing those undefined numbers. If a value has more decimals than specified scale, then the value will be rounded-up, e.g. 1.53 becomes 2 with scale 0, and 1.5 with scale 1.",
+        "defaultValue" : "0",
+        "required" : true,
+        "sensitive" : false,
+        "dynamic" : false,
+        "supportsEl" : true,
+        "expressionLanguageScope" : "Variable Registry Only",
+        "dependencies" : [ ]
+      }
+    },
+    "validationErrors" : [ ],
+    "validationStatus" : "VALID",
+    "activeThreadCount" : 0,
+    "extensionMissing" : false
+  },
+  "operatePermissions" : {
+    "canRead" : true,
+    "canWrite" : true
+  },
+  "status" : {
+    "runStatus" : "RUNNING",
+    "validationStatus" : "VALID",
+    "activeThreadCount" : 0
+  }
+}

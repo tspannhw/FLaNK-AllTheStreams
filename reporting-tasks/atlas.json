@@ -1,0 +1,453 @@
+{
+  "revision" : {
+    "clientId" : "f1211750-30f1-4a46-8167-da93a170cca9",
+    "version" : 10
+  },
+  "id" : "5e313c34-0aba-13e4-0000-0000676400f2",
+  "uri" : "http://edge2ai-1.dim.local:8080/nifi-api/reporting-tasks/5e313c34-0aba-13e4-0000-0000676400f2",
+  "permissions" : {
+    "canRead" : true,
+    "canWrite" : true
+  },
+  "bulletins" : [ ],
+  "component" : {
+    "name" : "ReportLineageToAtlas",
+    "type" : "org.apache.nifi.atlas.reporting.ReportLineageToAtlas",
+    "bundle" : {
+      "group" : "org.apache.nifi",
+      "artifact" : "nifi-atlas-nar",
+      "version" : "1.13.2.2.1.1.0-13"
+    },
+    "state" : "RUNNING",
+    "comments" : "",
+    "persistsState" : true,
+    "restricted" : false,
+    "deprecated" : false,
+    "multipleVersionsAvailable" : false,
+    "schedulingPeriod" : "5 mins",
+    "schedulingStrategy" : "TIMER_DRIVEN",
+    "defaultSchedulingPeriod" : {
+      "TIMER_DRIVEN" : "0 sec",
+      "CRON_DRIVEN" : "* * * * * ?"
+    },
+    "properties" : {
+      "atlas-urls" : "http://edge2ai-1.dim.local:31000/",
+      "atlas-conf-dir" : "/etc/atlas/conf",
+      "atlas-conf-create" : "true",
+      "atlas-default-cluster-name" : "cm",
+      "nifi-lineage-strategy" : "CompletePath",
+      "provenance-start-position" : "beginning-of-stream",
+      "provenance-batch-size" : "250",
+      "atlas-nifi-url" : "http://edge2ai-1.dim.local:8080/nifi",
+      "atlas-authentication-method" : "basic",
+      "atlas-username" : "admin",
+      "atlas-password" : "supersecret1",
+      "kafka-bootstrap-servers" : "edge2ai-1.dim.local:9092",
+      "kafka-security-protocol" : "PLAINTEXT",
+      "kafka-kerberos-service-name" : "kafka",
+      "atlas-connect-timeout" : "90 sec",
+      "atlas-read-timeout" : "90 sec",
+      "aws-s3-model-version" : "v2",
+      "filesystem-paths-level" : "FILE"
+    },
+    "descriptors" : {
+      "atlas-urls" : {
+        "name" : "atlas-urls",
+        "displayName" : "Atlas URLs",
+        "description" : "Comma separated URL of Atlas Servers (e.g. http://atlas-server-hostname:21000 or https://atlas-server-hostname:21443). For accessing Atlas behind Knox gateway, specify Knox gateway URL (e.g. https://knox-hostname:8443/gateway/{topology-name}/atlas). If not specified, 'atlas.rest.address' in Atlas Configuration File is used.",
+        "required" : false,
+        "sensitive" : false,
+        "dynamic" : false,
+        "supportsEl" : true,
+        "expressionLanguageScope" : "Variable Registry Only",
+        "dependencies" : [ ]
+      },
+      "atlas-conf-dir" : {
+        "name" : "atlas-conf-dir",
+        "displayName" : "Atlas Configuration Directory",
+        "description" : "Directory path that contains 'atlas-application.properties' file. If not specified and 'Create Atlas Configuration File' is disabled, then, 'atlas-application.properties' file under root classpath is used.",
+        "required" : false,
+        "sensitive" : false,
+        "dynamic" : false,
+        "supportsEl" : true,
+        "expressionLanguageScope" : "Variable Registry Only",
+        "dependencies" : [ ]
+      },
+      "atlas-conf-create" : {
+        "name" : "atlas-conf-create",
+        "displayName" : "Create Atlas Configuration File",
+        "description" : "If enabled, 'atlas-application.properties' file will be created in 'Atlas Configuration Directory' automatically when this Reporting Task starts. Note that the existing configuration file will be overwritten.",
+        "defaultValue" : "false",
+        "allowableValues" : [ {
+          "allowableValue" : {
+            "displayName" : "true",
+            "value" : "true"
+          },
+          "canRead" : true
+        }, {
+          "allowableValue" : {
+            "displayName" : "false",
+            "value" : "false"
+          },
+          "canRead" : true
+        } ],
+        "required" : true,
+        "sensitive" : false,
+        "dynamic" : false,
+        "supportsEl" : false,
+        "expressionLanguageScope" : "Not Supported",
+        "dependencies" : [ ]
+      },
+      "atlas-default-cluster-name" : {
+        "name" : "atlas-default-cluster-name",
+        "displayName" : "Atlas Default Metadata Namespace",
+        "description" : "Namespace for Atlas entities reported by this ReportingTask. If not specified, 'atlas.metadata.namespace' or 'atlas.cluster.name' (the former having priority) in Atlas Configuration File is used. Multiple mappings can be configured by user defined properties. See 'Additional Details...' for more.",
+        "required" : false,
+        "sensitive" : false,
+        "dynamic" : false,
+        "supportsEl" : true,
+        "expressionLanguageScope" : "Variable Registry Only",
+        "dependencies" : [ ]
+      },
+      "nifi-lineage-strategy" : {
+        "name" : "nifi-lineage-strategy",
+        "displayName" : "Lineage Strategy",
+        "description" : "Specifies granularity on how NiFi data flow should be reported to Atlas. NOTE: It is strongly recommended to keep using the same strategy once this reporting task started to keep Atlas data clean. Switching strategies will not delete Atlas entities created by the old strategy. Having mixed entities created by different strategies makes Atlas lineage graph noisy. For more detailed description on each strategy and differences, refer 'NiFi Lineage Strategy' section in Additional Details.",
+        "defaultValue" : "SimplePath",
+        "allowableValues" : [ {
+          "allowableValue" : {
+            "displayName" : "Simple Path",
+            "value" : "SimplePath",
+            "description" : "Map NiFi provenance events and target Atlas DataSets to statically created 'nifi_flow_path' Atlas Processes. See also 'Additional Details'."
+          },
+          "canRead" : true
+        }, {
+          "allowableValue" : {
+            "displayName" : "Complete Path",
+            "value" : "CompletePath",
+            "description" : "Create separate 'nifi_flow_path' Atlas Processes for each distinct input and output DataSet combinations by looking at the complete route for a given FlowFile. See also 'Additional Details."
+          },
+          "canRead" : true
+        } ],
+        "required" : true,
+        "sensitive" : false,
+        "dynamic" : false,
+        "supportsEl" : false,
+        "expressionLanguageScope" : "Not Supported",
+        "dependencies" : [ ]
+      },
+      "provenance-start-position" : {
+        "name" : "provenance-start-position",
+        "displayName" : "Provenance Record Start Position",
+        "description" : "If the Reporting Task has never been run, or if its state has been reset by a user, specifies where in the stream of Provenance Events the Reporting Task should start",
+        "defaultValue" : "beginning-of-stream",
+        "allowableValues" : [ {
+          "allowableValue" : {
+            "displayName" : "Beginning of Stream",
+            "value" : "beginning-of-stream",
+            "description" : "Start reading provenance Events from the beginning of the stream (the oldest event first)"
+          },
+          "canRead" : true
+        }, {
+          "allowableValue" : {
+            "displayName" : "End of Stream",
+            "value" : "end-of-stream",
+            "description" : "Start reading provenance Events from the end of the stream, ignoring old events"
+          },
+          "canRead" : true
+        } ],
+        "required" : true,
+        "sensitive" : false,
+        "dynamic" : false,
+        "supportsEl" : false,
+        "expressionLanguageScope" : "Not Supported",
+        "dependencies" : [ ]
+      },
+      "provenance-batch-size" : {
+        "name" : "provenance-batch-size",
+        "displayName" : "Provenance Record Batch Size",
+        "description" : "Specifies how many records to send in a single batch, at most.",
+        "defaultValue" : "1000",
+        "required" : true,
+        "sensitive" : false,
+        "dynamic" : false,
+        "supportsEl" : false,
+        "expressionLanguageScope" : "Not Supported",
+        "dependencies" : [ ]
+      },
+      "atlas-nifi-url" : {
+        "name" : "atlas-nifi-url",
+        "displayName" : "NiFi URL for Atlas",
+        "description" : "NiFi URL is used in Atlas to represent this NiFi cluster (or standalone instance). It is recommended to use one that can be accessible remotely instead of using 'localhost'.",
+        "required" : true,
+        "sensitive" : false,
+        "dynamic" : false,
+        "supportsEl" : true,
+        "expressionLanguageScope" : "Variable Registry Only",
+        "dependencies" : [ ]
+      },
+      "atlas-authentication-method" : {
+        "name" : "atlas-authentication-method",
+        "displayName" : "Atlas Authentication Method",
+        "description" : "Specify how to authenticate this reporting task to Atlas server.",
+        "defaultValue" : "basic",
+        "allowableValues" : [ {
+          "allowableValue" : {
+            "displayName" : "Basic",
+            "value" : "basic",
+            "description" : "Use username and password."
+          },
+          "canRead" : true
+        }, {
+          "allowableValue" : {
+            "displayName" : "Kerberos",
+            "value" : "kerberos",
+            "description" : "Use Kerberos keytab file."
+          },
+          "canRead" : true
+        } ],
+        "required" : true,
+        "sensitive" : false,
+        "dynamic" : false,
+        "supportsEl" : false,
+        "expressionLanguageScope" : "Not Supported",
+        "dependencies" : [ ]
+      },
+      "atlas-username" : {
+        "name" : "atlas-username",
+        "displayName" : "Atlas Username",
+        "description" : "User name to communicate with Atlas.",
+        "required" : false,
+        "sensitive" : false,
+        "dynamic" : false,
+        "supportsEl" : true,
+        "expressionLanguageScope" : "Variable Registry Only",
+        "dependencies" : [ ]
+      },
+      "atlas-password" : {
+        "name" : "atlas-password",
+        "displayName" : "Atlas Password",
+        "description" : "Password to communicate with Atlas.",
+        "required" : false,
+        "sensitive" : true,
+        "dynamic" : false,
+        "supportsEl" : true,
+        "expressionLanguageScope" : "Variable Registry Only",
+        "dependencies" : [ ]
+      },
+      "kerberos-credentials-service" : {
+        "name" : "kerberos-credentials-service",
+        "displayName" : "Kerberos Credentials Service",
+        "description" : "Specifies the Kerberos Credentials Controller Service that should be used for authenticating with Kerberos",
+        "allowableValues" : [ ],
+        "required" : false,
+        "sensitive" : false,
+        "dynamic" : false,
+        "supportsEl" : false,
+        "expressionLanguageScope" : "Not Supported",
+        "identifiesControllerService" : "org.apache.nifi.kerberos.KerberosCredentialsService",
+        "identifiesControllerServiceBundle" : {
+          "group" : "org.apache.nifi",
+          "artifact" : "nifi-standard-services-api-nar",
+          "version" : "1.13.2.2.1.1.0-13"
+        },
+        "dependencies" : [ ]
+      },
+      "nifi-kerberos-principal" : {
+        "name" : "nifi-kerberos-principal",
+        "displayName" : "Kerberos Principal",
+        "description" : "The Kerberos principal for this NiFi instance to access Atlas API and Kafka brokers. If not set, it is expected to set a JAAS configuration file in the JVM properties defined in the bootstrap.conf file. This principal will be set into 'sasl.jaas.config' Kafka's property.",
+        "required" : false,
+        "sensitive" : false,
+        "dynamic" : false,
+        "supportsEl" : true,
+        "expressionLanguageScope" : "Variable Registry Only",
+        "dependencies" : [ ]
+      },
+      "nifi-kerberos-keytab" : {
+        "name" : "nifi-kerberos-keytab",
+        "displayName" : "Kerberos Keytab",
+        "description" : "The Kerberos keytab for this NiFi instance to access Atlas API and Kafka brokers. If not set, it is expected to set a JAAS configuration file in the JVM properties defined in the bootstrap.conf file. This principal will be set into 'sasl.jaas.config' Kafka's property.",
+        "required" : false,
+        "sensitive" : false,
+        "dynamic" : false,
+        "supportsEl" : true,
+        "expressionLanguageScope" : "Variable Registry Only",
+        "dependencies" : [ ]
+      },
+      "ssl-context-service" : {
+        "name" : "ssl-context-service",
+        "displayName" : "SSL Context Service",
+        "description" : "Specifies the SSL Context Service to use for communicating with Atlas and Kafka.",
+        "allowableValues" : [ ],
+        "required" : false,
+        "sensitive" : false,
+        "dynamic" : false,
+        "supportsEl" : false,
+        "expressionLanguageScope" : "Not Supported",
+        "identifiesControllerService" : "org.apache.nifi.ssl.SSLContextService",
+        "identifiesControllerServiceBundle" : {
+          "group" : "org.apache.nifi",
+          "artifact" : "nifi-standard-services-api-nar",
+          "version" : "1.13.2.2.1.1.0-13"
+        },
+        "dependencies" : [ ]
+      },
+      "kafka-bootstrap-servers" : {
+        "name" : "kafka-bootstrap-servers",
+        "displayName" : "Kafka Bootstrap Servers",
+        "description" : "Kafka Bootstrap Servers to send Atlas hook notification messages based on NiFi provenance events. E.g. 'localhost:9092' NOTE: Once this reporting task has started, restarting NiFi is required to changed this property as Atlas library holds a unmodifiable static reference to Kafka client.",
+        "required" : false,
+        "sensitive" : false,
+        "dynamic" : false,
+        "supportsEl" : true,
+        "expressionLanguageScope" : "Variable Registry Only",
+        "dependencies" : [ ]
+      },
+      "kafka-security-protocol" : {
+        "name" : "kafka-security-protocol",
+        "displayName" : "Kafka Security Protocol",
+        "description" : "Protocol used to communicate with Kafka brokers to send Atlas hook notification messages. Corresponds to Kafka's 'security.protocol' property.",
+        "defaultValue" : "PLAINTEXT",
+        "allowableValues" : [ {
+          "allowableValue" : {
+            "displayName" : "PLAINTEXT",
+            "value" : "PLAINTEXT",
+            "description" : "PLAINTEXT"
+          },
+          "canRead" : true
+        }, {
+          "allowableValue" : {
+            "displayName" : "SSL",
+            "value" : "SSL",
+            "description" : "SSL"
+          },
+          "canRead" : true
+        }, {
+          "allowableValue" : {
+            "displayName" : "SASL_PLAINTEXT",
+            "value" : "SASL_PLAINTEXT",
+            "description" : "SASL_PLAINTEXT"
+          },
+          "canRead" : true
+        }, {
+          "allowableValue" : {
+            "displayName" : "SASL_SSL",
+            "value" : "SASL_SSL",
+            "description" : "SASL_SSL"
+          },
+          "canRead" : true
+        } ],
+        "required" : true,
+        "sensitive" : false,
+        "dynamic" : false,
+        "supportsEl" : false,
+        "expressionLanguageScope" : "Not Supported",
+        "dependencies" : [ ]
+      },
+      "kafka-kerberos-service-name" : {
+        "name" : "kafka-kerberos-service-name",
+        "displayName" : "Kafka Kerberos Service Name",
+        "description" : "The service name that matches the primary name of the Kafka server configured in the broker JAAS file. This can be defined either in Kafka's JAAS config or in Kafka's config. Corresponds to Kafka's 'security.protocol' property. It is ignored unless one of the SASL options of the <Security Protocol> are selected.",
+        "defaultValue" : "kafka",
+        "required" : false,
+        "sensitive" : false,
+        "dynamic" : false,
+        "supportsEl" : true,
+        "expressionLanguageScope" : "Variable Registry Only",
+        "dependencies" : [ ]
+      },
+      "atlas-connect-timeout" : {
+        "name" : "atlas-connect-timeout",
+        "displayName" : "Atlas Connect Timeout",
+        "description" : "Max wait time for connection to Atlas.",
+        "defaultValue" : "60 sec",
+        "required" : true,
+        "sensitive" : false,
+        "dynamic" : false,
+        "supportsEl" : false,
+        "expressionLanguageScope" : "Not Supported",
+        "dependencies" : [ ]
+      },
+      "atlas-read-timeout" : {
+        "name" : "atlas-read-timeout",
+        "displayName" : "Atlas Read Timeout",
+        "description" : "Max wait time for response from Atlas.",
+        "defaultValue" : "60 sec",
+        "required" : true,
+        "sensitive" : false,
+        "dynamic" : false,
+        "supportsEl" : false,
+        "expressionLanguageScope" : "Not Supported",
+        "dependencies" : [ ]
+      },
+      "aws-s3-model-version" : {
+        "name" : "aws-s3-model-version",
+        "displayName" : "AWS S3 Model Version",
+        "description" : "Specifies what type of AWS S3 directory entities will be created in Atlas for s3a:// transit URIs (eg. PutHDFS with S3 integration). NOTE: It is strongly recommended to keep using the same AWS S3 entity model version once this reporting task started to keep Atlas data clean. Switching versions will not delete existing Atlas entities created by the old version, nor migrate them to the new version.",
+        "defaultValue" : "v2",
+        "allowableValues" : [ {
+          "allowableValue" : {
+            "displayName" : "v1",
+            "value" : "v1",
+            "description" : "Creates AWS S3 directory entities version 1 (aws_s3_pseudo_dir)."
+          },
+          "canRead" : true
+        }, {
+          "allowableValue" : {
+            "displayName" : "v2",
+            "value" : "v2",
+            "description" : "Creates AWS S3 directory entities version 2 (aws_s3_v2_directory)."
+          },
+          "canRead" : true
+        } ],
+        "required" : true,
+        "sensitive" : false,
+        "dynamic" : false,
+        "supportsEl" : false,
+        "expressionLanguageScope" : "Not Supported",
+        "dependencies" : [ ]
+      },
+      "filesystem-paths-level" : {
+        "name" : "filesystem-paths-level",
+        "displayName" : "Filesystem Path Entities Level",
+        "description" : "Specifies how the filesystem path entities (fs_path and hdfs_path) will be logged in Atlas: File or Directory level. In case of File level, each individual file entity will be sent to Atlas as a separate entity with the full path including the filename. Directory level only logs the path of the parent directory without the filename. This setting affects processors working with files, like GetFile or PutHDFS. NOTE: Although the default value is File level for backward compatibility reasons, it is highly recommended to set it to Directory level because File level logging can generate a huge number of entities in Atlas.",
+        "defaultValue" : "FILE",
+        "allowableValues" : [ {
+          "allowableValue" : {
+            "displayName" : "File",
+            "value" : "FILE",
+            "description" : "Creates File level paths."
+          },
+          "canRead" : true
+        }, {
+          "allowableValue" : {
+            "displayName" : "Directory",
+            "value" : "DIRECTORY",
+            "description" : "Creates Directory level paths."
+          },
+          "canRead" : true
+        } ],
+        "required" : true,
+        "sensitive" : false,
+        "dynamic" : false,
+        "supportsEl" : false,
+        "expressionLanguageScope" : "Not Supported",
+        "dependencies" : [ ]
+      }
+    },
+    "validationErrors" : [ ],
+    "validationStatus" : "VALID",
+    "activeThreadCount" : 1,
+    "extensionMissing" : false
+  },
+  "operatePermissions" : {
+    "canRead" : true,
+    "canWrite" : true
+  },
+  "status" : {
+    "runStatus" : "RUNNING",
+    "validationStatus" : "VALID",
+    "activeThreadCount" : 1
+  }
+}

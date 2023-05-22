@@ -1,0 +1,77 @@
+{
+ "type": "record",
+ "name": "iottest",
+ "namespace": "com.cloudera.data",
+ "fields": [
+  {
+   "name": "id",
+   "type": [
+    "string",
+    "null"
+   ]
+  },
+  {
+   "name": "systemtime",
+   "type": [
+    "string",
+    "null"
+   ]
+  },
+  {
+   "name": "diskusage",
+   "type": [
+    "string",
+    "null"
+   ]
+  },
+  {
+   "name": "memory",
+   "type": [
+    "int",
+    "null"
+   ]
+  },
+  {
+   "name": "macaddress",
+   "type": [
+    "string",
+    "null"
+   ]
+  },
+  {
+   "name": "host",
+   "type": [
+    "string",
+    "null"
+   ]
+  },
+  {
+   "name": "end",
+   "type": [
+    "string",
+    "null"
+   ]
+  },
+  {
+   "name": "te",
+   "type": [
+    "string",
+    "null"
+   ]
+  },
+  {
+   "name": "cpu",
+   "type": [
+    "int",
+    "null"
+   ]
+  },
+  {
+   "name": "temperature",
+   "type": [
+    "string",
+    "null"
+   ]
+  }
+ ]
+}

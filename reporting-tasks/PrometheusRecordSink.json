@@ -1,0 +1,131 @@
+{
+  "revision" : {
+    "version" : 0
+  },
+  "id" : "9f08c0d8-0179-1000-ffff-ffffa5d80748",
+  "uri" : "http://edge2ai-1.dim.local:8080/nifi-api/controller-services/9f08c0d8-0179-1000-ffff-ffffa5d80748",
+  "permissions" : {
+    "canRead" : true,
+    "canWrite" : true
+  },
+  "bulletins" : [ ],
+  "component" : {
+    "id" : "9f08c0d8-0179-1000-ffff-ffffa5d80748",
+    "name" : "PrometheusRecordSink",
+    "type" : "org.apache.nifi.reporting.prometheus.PrometheusRecordSink",
+    "bundle" : {
+      "group" : "org.apache.nifi",
+      "artifact" : "nifi-prometheus-nar",
+      "version" : "1.13.2.2.1.1.0-13"
+    },
+    "controllerServiceApis" : [ {
+      "type" : "org.apache.nifi.record.sink.RecordSinkService",
+      "bundle" : {
+        "group" : "org.apache.nifi",
+        "artifact" : "nifi-standard-services-api-nar",
+        "version" : "1.13.2.2.1.1.0-13"
+      }
+    } ],
+    "comments" : "",
+    "state" : "DISABLED",
+    "persistsState" : false,
+    "restricted" : false,
+    "deprecated" : false,
+    "multipleVersionsAvailable" : false,
+    "properties" : {
+      "prometheus-reporting-task-metrics-endpoint-port" : "9092",
+      "prometheus-reporting-task-instance-id" : "${hostname(true)}",
+      "prometheus-reporting-task-client-auth" : "No Authentication"
+    },
+    "descriptors" : {
+      "prometheus-reporting-task-metrics-endpoint-port" : {
+        "name" : "prometheus-reporting-task-metrics-endpoint-port",
+        "displayName" : "Prometheus Metrics Endpoint Port",
+        "description" : "The Port where prometheus metrics can be accessed",
+        "defaultValue" : "9092",
+        "required" : true,
+        "sensitive" : false,
+        "dynamic" : false,
+        "supportsEl" : true,
+        "expressionLanguageScope" : "Variable Registry Only",
+        "dependencies" : [ ]
+      },
+      "prometheus-reporting-task-instance-id" : {
+        "name" : "prometheus-reporting-task-instance-id",
+        "displayName" : "Instance ID",
+        "description" : "Id of this NiFi instance to be included in the metrics sent to Prometheus",
+        "defaultValue" : "${hostname(true)}",
+        "required" : true,
+        "sensitive" : false,
+        "dynamic" : false,
+        "supportsEl" : true,
+        "expressionLanguageScope" : "Variable Registry Only",
+        "dependencies" : [ ]
+      },
+      "prometheus-reporting-task-ssl-context" : {
+        "name" : "prometheus-reporting-task-ssl-context",
+        "displayName" : "SSL Context Service",
+        "description" : "The SSL Context Service to use in order to secure the server. If specified, the server willaccept only HTTPS requests; otherwise, the server will accept only HTTP requests",
+        "allowableValues" : [ ],
+        "required" : false,
+        "sensitive" : false,
+        "dynamic" : false,
+        "supportsEl" : false,
+        "expressionLanguageScope" : "Not Supported",
+        "identifiesControllerService" : "org.apache.nifi.ssl.RestrictedSSLContextService",
+        "identifiesControllerServiceBundle" : {
+          "group" : "org.apache.nifi",
+          "artifact" : "nifi-standard-services-api-nar",
+          "version" : "1.13.2.2.1.1.0-13"
+        },
+        "dependencies" : [ ]
+      },
+      "prometheus-reporting-task-client-auth" : {
+        "name" : "prometheus-reporting-task-client-auth",
+        "displayName" : "Client Authentication",
+        "description" : "Specifies whether or not the Reporting Task should authenticate clients. This value is ignored if the <SSL Context Service> Property is not specified or the SSL Context provided uses only a KeyStore and not a TrustStore.",
+        "defaultValue" : "No Authentication",
+        "allowableValues" : [ {
+          "allowableValue" : {
+            "displayName" : "No Authentication",
+            "value" : "No Authentication",
+            "description" : "ReportingTask will not authenticate clients. Anyone can communicate with this ReportingTask anonymously"
+          },
+          "canRead" : true
+        }, {
+          "allowableValue" : {
+            "displayName" : "Want Authentication",
+            "value" : "Want Authentication",
+            "description" : "ReportingTask will try to verify the client but if unable to verify will allow the client to communicate anonymously"
+          },
+          "canRead" : true
+        }, {
+          "allowableValue" : {
+            "displayName" : "Need Authentication",
+            "value" : "Need Authentication",
+            "description" : "ReportingTask will reject communications from any client unless the client provides a certificate that is trusted by the TrustStorespecified in the SSL Context Service"
+          },
+          "canRead" : true
+        } ],
+        "required" : true,
+        "sensitive" : false,
+        "dynamic" : false,
+        "supportsEl" : false,
+        "expressionLanguageScope" : "Not Supported",
+        "dependencies" : [ ]
+      }
+    },
+    "referencingComponents" : [ ],
+    "validationErrors" : [ ],
+    "validationStatus" : "VALID",
+    "extensionMissing" : false
+  },
+  "operatePermissions" : {
+    "canRead" : true,
+    "canWrite" : true
+  },
+  "status" : {
+    "runStatus" : "DISABLED",
+    "validationStatus" : "VALID"
+  }
+}

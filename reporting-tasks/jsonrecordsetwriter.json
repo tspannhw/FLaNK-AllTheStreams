@@ -1,0 +1,811 @@
+{
+  "revision" : {
+    "version" : 0
+  },
+  "id" : "9eda728b-0179-1000-0000-000026e48977",
+  "uri" : "http://edge2ai-1.dim.local:8080/nifi-api/controller-services/9eda728b-0179-1000-0000-000026e48977",
+  "permissions" : {
+    "canRead" : true,
+    "canWrite" : true
+  },
+  "bulletins" : [ ],
+  "component" : {
+    "id" : "9eda728b-0179-1000-0000-000026e48977",
+    "name" : "JsonRecordSetWriter",
+    "type" : "org.apache.nifi.json.JsonRecordSetWriter",
+    "bundle" : {
+      "group" : "org.apache.nifi",
+      "artifact" : "nifi-record-serialization-services-nar",
+      "version" : "1.13.2.2.1.1.0-13"
+    },
+    "controllerServiceApis" : [ {
+      "type" : "org.apache.nifi.serialization.RecordSetWriterFactory",
+      "bundle" : {
+        "group" : "org.apache.nifi",
+        "artifact" : "nifi-standard-services-api-nar",
+        "version" : "1.13.2.2.1.1.0-13"
+      }
+    } ],
+    "comments" : "",
+    "state" : "ENABLED",
+    "persistsState" : false,
+    "restricted" : false,
+    "deprecated" : false,
+    "multipleVersionsAvailable" : false,
+    "properties" : {
+      "Schema Write Strategy" : "no-schema",
+      "schema-protocol-version" : "1",
+      "schema-access-strategy" : "inherit-record-schema",
+      "schema-name" : "${schema.name}",
+      "schema-text" : "${avro.schema}",
+      "Pretty Print JSON" : "false",
+      "suppress-nulls" : "never-suppress",
+      "output-grouping" : "output-array",
+      "compression-format" : "none",
+      "compression-level" : "1"
+    },
+    "descriptors" : {
+      "Schema Write Strategy" : {
+        "name" : "Schema Write Strategy",
+        "displayName" : "Schema Write Strategy",
+        "description" : "Specifies how the schema for a Record should be added to the data.",
+        "defaultValue" : "no-schema",
+        "allowableValues" : [ {
+          "allowableValue" : {
+            "displayName" : "Do Not Write Schema",
+            "value" : "no-schema",
+            "description" : "Do not add any schema-related information to the FlowFile."
+          },
+          "canRead" : true
+        }, {
+          "allowableValue" : {
+            "displayName" : "Set 'schema.name' Attribute",
+            "value" : "schema-name",
+            "description" : "The FlowFile will be given an attribute named 'schema.name' and this attribute will indicate the name of the schema in the Schema Registry. Note that ifthe schema for a record is not obtained from a Schema Registry, then no attribute will be added."
+          },
+          "canRead" : true
+        }, {
+          "allowableValue" : {
+            "displayName" : "Set 'avro.schema' Attribute",
+            "value" : "full-schema-attribute",
+            "description" : "The FlowFile will be given an attribute named 'avro.schema' and this attribute will contain the Avro Schema that describes the records in the FlowFile. The contents of the FlowFile need not be Avro, but the text of the schema will be used."
+          },
+          "canRead" : true
+        }, {
+          "allowableValue" : {
+            "displayName" : "HWX Schema Reference Attributes",
+            "value" : "hwx-schema-ref-attributes",
+            "description" : "The FlowFile will be given a set of 3 attributes to describe the schema: 'schema.identifier', 'schema.version', and 'schema.protocol.version'. Note that if the schema for a record does not contain the necessary identifier and version, an Exception will be thrown when attempting to write the data."
+          },
+          "canRead" : true
+        }, {
+          "allowableValue" : {
+            "displayName" : "HWX Content-Encoded Schema Reference",
+            "value" : "hwx-content-encoded-schema",
+            "description" : "The content of the FlowFile will contain a reference to a schema in the Schema Registry service. The reference is encoded as a single byte indicating the 'protocol version', followed by 8 bytes indicating the schema identifier, and finally 4 bytes indicating the schema version, as per the Hortonworks Schema Registry serializers and deserializers, as found at https://github.com/hortonworks/registry. This will be prepended to each FlowFile. Note that if the schema for a record does not contain the necessary identifier and version, an Exception will be thrown when attempting to write the data."
+          },
+          "canRead" : true
+        }, {
+          "allowableValue" : {
+            "displayName" : "Confluent Schema Registry Reference",
+            "value" : "confluent-encoded",
+            "description" : "The content of the FlowFile will contain a reference to a schema in the Schema Registry service. The reference is encoded as a single 'Magic Byte' followed by 4 bytes representing the identifier of the schema, as outlined at http://docs.confluent.io/current/schema-registry/docs/serializer-formatter.html. This will be prepended to each FlowFile. Note that if the schema for a record does not contain the necessary identifier and version, an Exception will be thrown when attempting to write the data. This is based on the encoding used by version 3.2.x of the Confluent Schema Registry."
+          },
+          "canRead" : true
+        } ],
+        "required" : true,
+        "sensitive" : false,
+        "dynamic" : false,
+        "supportsEl" : false,
+        "expressionLanguageScope" : "Not Supported",
+        "dependencies" : [ ]
+      },
+      "schema-cache" : {
+        "name" : "schema-cache",
+        "displayName" : "Schema Cache",
+        "description" : "Specifies a Schema Cache to add the Record Schema to so that Record Readers can quickly lookup the schema.",
+        "allowableValues" : [ ],
+        "required" : false,
+        "sensitive" : false,
+        "dynamic" : false,
+        "supportsEl" : false,
+        "expressionLanguageScope" : "Not Supported",
+        "identifiesControllerService" : "org.apache.nifi.serialization.RecordSchemaCacheService",
+        "identifiesControllerServiceBundle" : {
+          "group" : "org.apache.nifi",
+          "artifact" : "nifi-standard-services-api-nar",
+          "version" : "1.13.2.2.1.1.0-13"
+        },
+        "dependencies" : [ ]
+      },
+      "schema-protocol-version" : {
+        "name" : "schema-protocol-version",
+        "displayName" : "Schema Protocol Version",
+        "description" : "The protocol version to be used for Schema Write Strategies that require a protocol version, such as Hortonworks Schema Registry strategies. Valid protocol versions for Hortonworks Schema Registry are integer values 1, 2, or 3.",
+        "defaultValue" : "1",
+        "required" : false,
+        "sensitive" : false,
+        "dynamic" : false,
+        "supportsEl" : true,
+        "expressionLanguageScope" : "Variable Registry and FlowFile Attributes",
+        "dependencies" : [ {
+          "propertyName" : "Schema Write Strategy",
+          "dependentValues" : [ "hwx-schema-ref-attributes", "hwx-content-encoded-schema" ]
+        } ]
+      },
+      "schema-access-strategy" : {
+        "name" : "schema-access-strategy",
+        "displayName" : "Schema Access Strategy",
+        "description" : "Specifies how to obtain the schema that is to be used for interpreting the data.",
+        "defaultValue" : "inherit-record-schema",
+        "allowableValues" : [ {
+          "allowableValue" : {
+            "displayName" : "Inherit Record Schema",
+            "value" : "inherit-record-schema",
+            "description" : "The schema used to write records will be the same schema that was given to the Record when the Record was created."
+          },
+          "canRead" : true
+        }, {
+          "allowableValue" : {
+            "displayName" : "Use 'Schema Name' Property",
+            "value" : "schema-name",
+            "description" : "The name of the Schema to use is specified by the 'Schema Name' Property. The value of this property is used to lookup the Schema in the configured Schema Registry service."
+          },
+          "canRead" : true
+        }, {
+          "allowableValue" : {
+            "displayName" : "Use 'Schema Text' Property",
+            "value" : "schema-text-property",
+            "description" : "The text of the Schema itself is specified by the 'Schema Text' Property. The value of this property must be a valid Avro Schema. If Expression Language is used, the value of the 'Schema Text' property must be valid after substituting the expressions."
+          },
+          "canRead" : true
+        } ],
+        "required" : true,
+        "sensitive" : false,
+        "dynamic" : false,
+        "supportsEl" : false,
+        "expressionLanguageScope" : "Not Supported",
+        "dependencies" : [ ]
+      },
+      "schema-registry" : {
+        "name" : "schema-registry",
+        "displayName" : "Schema Registry",
+        "description" : "Specifies the Controller Service to use for the Schema Registry",
+        "allowableValues" : [ ],
+        "required" : false,
+        "sensitive" : false,
+        "dynamic" : false,
+        "supportsEl" : false,
+        "expressionLanguageScope" : "Not Supported",
+        "identifiesControllerService" : "org.apache.nifi.schemaregistry.services.SchemaRegistry",
+        "identifiesControllerServiceBundle" : {
+          "group" : "org.apache.nifi",
+          "artifact" : "nifi-standard-services-api-nar",
+          "version" : "1.13.2.2.1.1.0-13"
+        },
+        "dependencies" : [ {
+          "propertyName" : "schema-access-strategy",
+          "dependentValues" : [ "confluent-encoded", "schema-name", "hwx-schema-ref-attributes", "hwx-content-encoded-schema" ]
+        } ]
+      },
+      "schema-name" : {
+        "name" : "schema-name",
+        "displayName" : "Schema Name",
+        "description" : "Specifies the name of the schema to lookup in the Schema Registry property",
+        "defaultValue" : "${schema.name}",
+        "required" : false,
+        "sensitive" : false,
+        "dynamic" : false,
+        "supportsEl" : true,
+        "expressionLanguageScope" : "Variable Registry and FlowFile Attributes",
+        "dependencies" : [ {
+          "propertyName" : "schema-access-strategy",
+          "dependentValues" : [ "schema-name" ]
+        } ]
+      },
+      "schema-version" : {
+        "name" : "schema-version",
+        "displayName" : "Schema Version",
+        "description" : "Specifies the version of the schema to lookup in the Schema Registry. If not specified then the latest version of the schema will be retrieved.",
+        "required" : false,
+        "sensitive" : false,
+        "dynamic" : false,
+        "supportsEl" : true,
+        "expressionLanguageScope" : "Variable Registry and FlowFile Attributes",
+        "dependencies" : [ {
+          "propertyName" : "schema-access-strategy",
+          "dependentValues" : [ "schema-name" ]
+        } ]
+      },
+      "schema-branch" : {
+        "name" : "schema-branch",
+        "displayName" : "Schema Branch",
+        "description" : "Specifies the name of the branch to use when looking up the schema in the Schema Registry property. If the chosen Schema Registry does not support branching, this value will be ignored.",
+        "required" : false,
+        "sensitive" : false,
+        "dynamic" : false,
+        "supportsEl" : true,
+        "expressionLanguageScope" : "Variable Registry and FlowFile Attributes",
+        "dependencies" : [ {
+          "propertyName" : "schema-access-strategy",
+          "dependentValues" : [ "schema-name" ]
+        } ]
+      },
+      "schema-text" : {
+        "name" : "schema-text",
+        "displayName" : "Schema Text",
+        "description" : "The text of an Avro-formatted Schema",
+        "defaultValue" : "${avro.schema}",
+        "required" : false,
+        "sensitive" : false,
+        "dynamic" : false,
+        "supportsEl" : true,
+        "expressionLanguageScope" : "Variable Registry and FlowFile Attributes",
+        "dependencies" : [ {
+          "propertyName" : "schema-access-strategy",
+          "dependentValues" : [ "schema-text-property" ]
+        } ]
+      },
+      "Date Format" : {
+        "name" : "Date Format",
+        "displayName" : "Date Format",
+        "description" : "Specifies the format to use when reading/writing Date fields. If not specified, Date fields will be assumed to be number of milliseconds since epoch (Midnight, Jan 1, 1970 GMT). If specified, the value must match the Java Simple Date Format (for example, MM/dd/yyyy for a two-digit month, followed by a two-digit day, followed by a four-digit year, all separated by '/' characters, as in 01/01/2017).",
+        "required" : false,
+        "sensitive" : false,
+        "dynamic" : false,
+        "supportsEl" : false,
+        "expressionLanguageScope" : "Not Supported",
+        "dependencies" : [ ]
+      },
+      "Time Format" : {
+        "name" : "Time Format",
+        "displayName" : "Time Format",
+        "description" : "Specifies the format to use when reading/writing Time fields. If not specified, Time fields will be assumed to be number of milliseconds since epoch (Midnight, Jan 1, 1970 GMT). If specified, the value must match the Java Simple Date Format (for example, HH:mm:ss for a two-digit hour in 24-hour format, followed by a two-digit minute, followed by a two-digit second, all separated by ':' characters, as in 18:04:15).",
+        "required" : false,
+        "sensitive" : false,
+        "dynamic" : false,
+        "supportsEl" : false,
+        "expressionLanguageScope" : "Not Supported",
+        "dependencies" : [ ]
+      },
+      "Timestamp Format" : {
+        "name" : "Timestamp Format",
+        "displayName" : "Timestamp Format",
+        "description" : "Specifies the format to use when reading/writing Timestamp fields. If not specified, Timestamp fields will be assumed to be number of milliseconds since epoch (Midnight, Jan 1, 1970 GMT). If specified, the value must match the Java Simple Date Format (for example, MM/dd/yyyy HH:mm:ss for a two-digit month, followed by a two-digit day, followed by a four-digit year, all separated by '/' characters; and then followed by a two-digit hour in 24-hour format, followed by a two-digit minute, followed by a two-digit second, all separated by ':' characters, as in 01/01/2017 18:04:15).",
+        "required" : false,
+        "sensitive" : false,
+        "dynamic" : false,
+        "supportsEl" : false,
+        "expressionLanguageScope" : "Not Supported",
+        "dependencies" : [ ]
+      },
+      "Pretty Print JSON" : {
+        "name" : "Pretty Print JSON",
+        "displayName" : "Pretty Print JSON",
+        "description" : "Specifies whether or not the JSON should be pretty printed",
+        "defaultValue" : "false",
+        "allowableValues" : [ {
+          "allowableValue" : {
+            "displayName" : "true",
+            "value" : "true"
+          },
+          "canRead" : true
+        }, {
+          "allowableValue" : {
+            "displayName" : "false",
+            "value" : "false"
+          },
+          "canRead" : true
+        } ],
+        "required" : true,
+        "sensitive" : false,
+        "dynamic" : false,
+        "supportsEl" : false,
+        "expressionLanguageScope" : "Not Supported",
+        "dependencies" : [ ]
+      },
+      "suppress-nulls" : {
+        "name" : "suppress-nulls",
+        "displayName" : "Suppress Null Values",
+        "description" : "Specifies how the writer should handle a null field",
+        "defaultValue" : "never-suppress",
+        "allowableValues" : [ {
+          "allowableValue" : {
+            "displayName" : "Never Suppress",
+            "value" : "never-suppress",
+            "description" : "Fields that are missing (present in the schema but not in the record), or that have a value of null, will be written out as a null value"
+          },
+          "canRead" : true
+        }, {
+          "allowableValue" : {
+            "displayName" : "Always Suppress",
+            "value" : "always-suppress",
+            "description" : "Fields that are missing (present in the schema but not in the record), or that have a value of null, will not be written out"
+          },
+          "canRead" : true
+        }, {
+          "allowableValue" : {
+            "displayName" : "Suppress Missing Values",
+            "value" : "suppress-missing",
+            "description" : "When a field has a value of null, it will be written out. However, if a field is defined in the schema and not present in the record, the field will not be written out."
+          },
+          "canRead" : true
+        } ],
+        "required" : true,
+        "sensitive" : false,
+        "dynamic" : false,
+        "supportsEl" : false,
+        "expressionLanguageScope" : "Not Supported",
+        "dependencies" : [ ]
+      },
+      "output-grouping" : {
+        "name" : "output-grouping",
+        "displayName" : "Output Grouping",
+        "description" : "Specifies how the writer should output the JSON records (as an array or one object per line, e.g.) Note that if 'One Line Per Object' is selected, then Pretty Print JSON must be false.",
+        "defaultValue" : "output-array",
+        "allowableValues" : [ {
+          "allowableValue" : {
+            "displayName" : "Array",
+            "value" : "output-array",
+            "description" : "Output records as a JSON array"
+          },
+          "canRead" : true
+        }, {
+          "allowableValue" : {
+            "displayName" : "One Line Per Object",
+            "value" : "output-oneline",
+            "description" : "Output records with one JSON object per line, delimited by a newline character"
+          },
+          "canRead" : true
+        } ],
+        "required" : true,
+        "sensitive" : false,
+        "dynamic" : false,
+        "supportsEl" : false,
+        "expressionLanguageScope" : "Not Supported",
+        "dependencies" : [ ]
+      },
+      "compression-format" : {
+        "name" : "compression-format",
+        "displayName" : "Compression Format",
+        "description" : "The compression format to use. Valid values are: GZIP, BZIP2, XZ-LZMA2, LZMA, Snappy, and Snappy Framed",
+        "defaultValue" : "none",
+        "allowableValues" : [ {
+          "allowableValue" : {
+            "displayName" : "none",
+            "value" : "none"
+          },
+          "canRead" : true
+        }, {
+          "allowableValue" : {
+            "displayName" : "gzip",
+            "value" : "gzip"
+          },
+          "canRead" : true
+        }, {
+          "allowableValue" : {
+            "displayName" : "bzip2",
+            "value" : "bzip2"
+          },
+          "canRead" : true
+        }, {
+          "allowableValue" : {
+            "displayName" : "xz-lzma2",
+            "value" : "xz-lzma2"
+          },
+          "canRead" : true
+        }, {
+          "allowableValue" : {
+            "displayName" : "snappy",
+            "value" : "snappy"
+          },
+          "canRead" : true
+        }, {
+          "allowableValue" : {
+            "displayName" : "snappy framed",
+            "value" : "snappy framed"
+          },
+          "canRead" : true
+        } ],
+        "required" : true,
+        "sensitive" : false,
+        "dynamic" : false,
+        "supportsEl" : false,
+        "expressionLanguageScope" : "Not Supported",
+        "dependencies" : [ ]
+      },
+      "compression-level" : {
+        "name" : "compression-level",
+        "displayName" : "Compression Level",
+        "description" : "The compression level to use; this is valid only when using GZIP compression. A lower value results in faster processing but less compression; a value of 0 indicates no compression but simply archiving",
+        "defaultValue" : "1",
+        "allowableValues" : [ {
+          "allowableValue" : {
+            "displayName" : "0",
+            "value" : "0"
+          },
+          "canRead" : true
+        }, {
+          "allowableValue" : {
+            "displayName" : "1",
+            "value" : "1"
+          },
+          "canRead" : true
+        }, {
+          "allowableValue" : {
+            "displayName" : "2",
+            "value" : "2"
+          },
+          "canRead" : true
+        }, {
+          "allowableValue" : {
+            "displayName" : "3",
+            "value" : "3"
+          },
+          "canRead" : true
+        }, {
+          "allowableValue" : {
+            "displayName" : "4",
+            "value" : "4"
+          },
+          "canRead" : true
+        }, {
+          "allowableValue" : {
+            "displayName" : "5",
+            "value" : "5"
+          },
+          "canRead" : true
+        }, {
+          "allowableValue" : {
+            "displayName" : "6",
+            "value" : "6"
+          },
+          "canRead" : true
+        }, {
+          "allowableValue" : {
+            "displayName" : "7",
+            "value" : "7"
+          },
+          "canRead" : true
+        }, {
+          "allowableValue" : {
+            "displayName" : "8",
+            "value" : "8"
+          },
+          "canRead" : true
+        }, {
+          "allowableValue" : {
+            "displayName" : "9",
+            "value" : "9"
+          },
+          "canRead" : true
+        } ],
+        "required" : true,
+        "sensitive" : false,
+        "dynamic" : false,
+        "supportsEl" : false,
+        "expressionLanguageScope" : "Not Supported",
+        "dependencies" : [ {
+          "propertyName" : "compression-format",
+          "dependentValues" : [ "gzip" ]
+        } ]
+      }
+    },
+    "referencingComponents" : [ {
+      "revision" : {
+        "version" : 0,
+        "lastModifier" : "anonymous"
+      },
+      "id" : "9ed98798-0179-1000-0000-000051bc57e9",
+      "permissions" : {
+        "canRead" : true,
+        "canWrite" : true
+      },
+      "bulletins" : [ ],
+      "component" : {
+        "id" : "9ed98798-0179-1000-0000-000051bc57e9",
+        "name" : "KafkaRecordSink_2_6",
+        "type" : "KafkaRecordSink_2_6",
+        "state" : "ENABLED",
+        "properties" : {
+          "bootstrap.servers" : "edge2ai-1.dim.local:9092",
+          "topic" : "bulletins",
+          "record-sink-record-writer" : "9eda728b-0179-1000-0000-000026e48977",
+          "acks" : "0",
+          "message-header-encoding" : "UTF-8",
+          "security.protocol" : "PLAINTEXT",
+          "max.request.size" : "1 MB",
+          "ack.wait.time" : "15 secs",
+          "max.block.ms" : "15 sec",
+          "compression.type" : "none",
+          "client.id" : "nifi-bulletin-writer"
+        },
+        "descriptors" : {
+          "bootstrap.servers" : {
+            "name" : "bootstrap.servers",
+            "displayName" : "Kafka Brokers",
+            "description" : "A comma-separated list of known Kafka Brokers in the format <host>:<port>",
+            "defaultValue" : "localhost:9092",
+            "required" : true,
+            "sensitive" : false,
+            "dynamic" : false,
+            "supportsEl" : true,
+            "expressionLanguageScope" : "Variable Registry Only",
+            "dependencies" : [ ]
+          },
+          "topic" : {
+            "name" : "topic",
+            "displayName" : "Topic Name",
+            "description" : "The name of the Kafka Topic to publish to.",
+            "required" : true,
+            "sensitive" : false,
+            "dynamic" : false,
+            "supportsEl" : true,
+            "expressionLanguageScope" : "Variable Registry Only",
+            "dependencies" : [ ]
+          },
+          "record-sink-record-writer" : {
+            "name" : "record-sink-record-writer",
+            "displayName" : "Record Writer",
+            "description" : "Specifies the Controller Service to use for writing out the records.",
+            "allowableValues" : [ {
+              "allowableValue" : {
+                "displayName" : "JsonRecordSetWriter",
+                "value" : "9eda728b-0179-1000-0000-000026e48977"
+              },
+              "canRead" : true
+            } ],
+            "required" : true,
+            "sensitive" : false,
+            "dynamic" : false,
+            "supportsEl" : false,
+            "expressionLanguageScope" : "Not Supported",
+            "identifiesControllerService" : "org.apache.nifi.serialization.RecordSetWriterFactory",
+            "identifiesControllerServiceBundle" : {
+              "group" : "org.apache.nifi",
+              "artifact" : "nifi-standard-services-api-nar",
+              "version" : "1.13.2.2.1.1.0-13"
+            },
+            "dependencies" : [ ]
+          },
+          "acks" : {
+            "name" : "acks",
+            "displayName" : "Delivery Guarantee",
+            "description" : "Specifies the requirement for guaranteeing that a message is sent to Kafka. Corresponds to Kafka's 'acks' property.",
+            "defaultValue" : "0",
+            "allowableValues" : [ {
+              "allowableValue" : {
+                "displayName" : "Best Effort",
+                "value" : "0",
+                "description" : "Records are considered 'transmitted successfully' after successfully writing the content to a Kafka node, without waiting for a response. This provides the best performance but may result in data loss."
+              },
+              "canRead" : true
+            }, {
+              "allowableValue" : {
+                "displayName" : "Guarantee Single Node Delivery",
+                "value" : "1",
+                "description" : "Records are considered 'transmitted successfully' if the message is received by a single Kafka node, whether or not it is replicated. This is faster than <Guarantee Replicated Delivery> but can result in data loss if a Kafka node crashes."
+              },
+              "canRead" : true
+            }, {
+              "allowableValue" : {
+                "displayName" : "Guarantee Replicated Delivery",
+                "value" : "all",
+                "description" : "Records are considered 'transmitted unsuccessfully' unless the message is replicated to the appropriate number of Kafka Nodes according to the Topic configuration."
+              },
+              "canRead" : true
+            } ],
+            "required" : true,
+            "sensitive" : false,
+            "dynamic" : false,
+            "supportsEl" : false,
+            "expressionLanguageScope" : "Not Supported",
+            "dependencies" : [ ]
+          },
+          "message-header-encoding" : {
+            "name" : "message-header-encoding",
+            "displayName" : "Message Header Encoding",
+            "description" : "For any attribute that is added as a message header, as configured via the <Attributes to Send as Headers> property, this property indicates the Character Encoding to use for serializing the headers.",
+            "defaultValue" : "UTF-8",
+            "required" : false,
+            "sensitive" : false,
+            "dynamic" : false,
+            "supportsEl" : false,
+            "expressionLanguageScope" : "Not Supported",
+            "dependencies" : [ ]
+          },
+          "security.protocol" : {
+            "name" : "security.protocol",
+            "displayName" : "Security Protocol",
+            "description" : "Protocol used to communicate with brokers. Corresponds to Kafka's 'security.protocol' property.",
+            "defaultValue" : "PLAINTEXT",
+            "allowableValues" : [ {
+              "allowableValue" : {
+                "displayName" : "PLAINTEXT",
+                "value" : "PLAINTEXT",
+                "description" : "PLAINTEXT"
+              },
+              "canRead" : true
+            }, {
+              "allowableValue" : {
+                "displayName" : "SSL",
+                "value" : "SSL",
+                "description" : "SSL"
+              },
+              "canRead" : true
+            }, {
+              "allowableValue" : {
+                "displayName" : "SASL_PLAINTEXT",
+                "value" : "SASL_PLAINTEXT",
+                "description" : "SASL_PLAINTEXT"
+              },
+              "canRead" : true
+            }, {
+              "allowableValue" : {
+                "displayName" : "SASL_SSL",
+                "value" : "SASL_SSL",
+                "description" : "SASL_SSL"
+              },
+              "canRead" : true
+            } ],
+            "required" : true,
+            "sensitive" : false,
+            "dynamic" : false,
+            "supportsEl" : false,
+            "expressionLanguageScope" : "Not Supported",
+            "dependencies" : [ ]
+          },
+          "kerberos-credentials-service" : {
+            "name" : "kerberos-credentials-service",
+            "displayName" : "Kerberos Credentials Service",
+            "description" : "Specifies the Kerberos Credentials Controller Service that should be used for authenticating with Kerberos",
+            "allowableValues" : [ ],
+            "required" : false,
+            "sensitive" : false,
+            "dynamic" : false,
+            "supportsEl" : false,
+            "expressionLanguageScope" : "Not Supported",
+            "identifiesControllerService" : "org.apache.nifi.kerberos.KerberosCredentialsService",
+            "identifiesControllerServiceBundle" : {
+              "group" : "org.apache.nifi",
+              "artifact" : "nifi-standard-services-api-nar",
+              "version" : "1.13.2.2.1.1.0-13"
+            },
+            "dependencies" : [ ]
+          },
+          "sasl.kerberos.service.name" : {
+            "name" : "sasl.kerberos.service.name",
+            "displayName" : "Kerberos Service Name",
+            "description" : "The service name that matches the primary name of the Kafka server configured in the broker JAAS file.This can be defined either in Kafka's JAAS config or in Kafka's config. Corresponds to Kafka's 'security.protocol' property.It is ignored unless one of the SASL options of the <Security Protocol> are selected.",
+            "required" : false,
+            "sensitive" : false,
+            "dynamic" : false,
+            "supportsEl" : true,
+            "expressionLanguageScope" : "Variable Registry Only",
+            "dependencies" : [ ]
+          },
+          "ssl.context.service" : {
+            "name" : "ssl.context.service",
+            "displayName" : "SSL Context Service",
+            "description" : "Specifies the SSL Context Service to use for communicating with Kafka.",
+            "allowableValues" : [ ],
+            "required" : false,
+            "sensitive" : false,
+            "dynamic" : false,
+            "supportsEl" : false,
+            "expressionLanguageScope" : "Not Supported",
+            "identifiesControllerService" : "org.apache.nifi.ssl.SSLContextService",
+            "identifiesControllerServiceBundle" : {
+              "group" : "org.apache.nifi",
+              "artifact" : "nifi-standard-services-api-nar",
+              "version" : "1.13.2.2.1.1.0-13"
+            },
+            "dependencies" : [ ]
+          },
+          "max.request.size" : {
+            "name" : "max.request.size",
+            "displayName" : "Max Request Size",
+            "description" : "The maximum size of a request in bytes. Corresponds to Kafka's 'max.request.size' property and defaults to 1 MB (1048576).",
+            "defaultValue" : "1 MB",
+            "required" : true,
+            "sensitive" : false,
+            "dynamic" : false,
+            "supportsEl" : false,
+            "expressionLanguageScope" : "Not Supported",
+            "dependencies" : [ ]
+          },
+          "ack.wait.time" : {
+            "name" : "ack.wait.time",
+            "displayName" : "Acknowledgment Wait Time",
+            "description" : "After sending a message to Kafka, this indicates the amount of time that we are willing to wait for a response from Kafka. If Kafka does not acknowledge the message within this time period, the FlowFile will be routed to 'failure'.",
+            "defaultValue" : "5 secs",
+            "required" : true,
+            "sensitive" : false,
+            "dynamic" : false,
+            "supportsEl" : false,
+            "expressionLanguageScope" : "Not Supported",
+            "dependencies" : [ ]
+          },
+          "max.block.ms" : {
+            "name" : "max.block.ms",
+            "displayName" : "Max Metadata Wait Time",
+            "description" : "The amount of time publisher will wait to obtain metadata or wait for the buffer to flush during the 'send' call before failing the entire 'send' call. Corresponds to Kafka's 'max.block.ms' property",
+            "defaultValue" : "5 sec",
+            "required" : true,
+            "sensitive" : false,
+            "dynamic" : false,
+            "supportsEl" : true,
+            "expressionLanguageScope" : "Variable Registry Only",
+            "dependencies" : [ ]
+          },
+          "compression.type" : {
+            "name" : "compression.type",
+            "displayName" : "Compression Type",
+            "description" : "This parameter allows you to specify the compression codec for all data generated by this producer.",
+            "defaultValue" : "none",
+            "allowableValues" : [ {
+              "allowableValue" : {
+                "displayName" : "none",
+                "value" : "none"
+              },
+              "canRead" : true
+            }, {
+              "allowableValue" : {
+                "displayName" : "gzip",
+                "value" : "gzip"
+              },
+              "canRead" : true
+            }, {
+              "allowableValue" : {
+                "displayName" : "snappy",
+                "value" : "snappy"
+              },
+              "canRead" : true
+            }, {
+              "allowableValue" : {
+                "displayName" : "lz4",
+                "value" : "lz4"
+              },
+              "canRead" : true
+            } ],
+            "required" : true,
+            "sensitive" : false,
+            "dynamic" : false,
+            "supportsEl" : false,
+            "expressionLanguageScope" : "Not Supported",
+            "dependencies" : [ ]
+          },
+          "client.id" : {
+            "name" : "client.id",
+            "displayName" : "client.id",
+            "description" : "Specifies the value for 'client.id' Kafka Configuration.",
+            "required" : false,
+            "sensitive" : false,
+            "dynamic" : true,
+            "supportsEl" : true,
+            "expressionLanguageScope" : "Variable Registry Only",
+            "dependencies" : [ ]
+          }
+        },
+        "referenceType" : "ControllerService",
+        "referenceCycle" : false,
+        "referencingComponents" : [ ]
+      },
+      "operatePermissions" : {
+        "canRead" : true,
+        "canWrite" : true
+      }
+    } ],
+    "validationErrors" : [ ],
+    "validationStatus" : "VALID",
+    "extensionMissing" : false
+  },
+  "operatePermissions" : {
+    "canRead" : true,
+    "canWrite" : true
+  },
+  "status" : {
+    "runStatus" : "ENABLED",
+    "validationStatus" : "VALID"
+  }
+}

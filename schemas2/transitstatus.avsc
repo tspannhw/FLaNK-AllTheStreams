@@ -1,0 +1,42 @@
+{
+  "fields": [
+    {
+      "name": "title",
+      "type": "string"
+    },
+    {
+      "name": "description",
+      "type": "string"
+    },
+    {
+      "name": "pubDate",
+      "type": "string"
+    },
+    {
+      "name": "link",
+      "type": "string"
+    },
+        {
+      "name": "servicename",
+      "type": "string"
+    },
+        {
+      "name": "locationname",
+      "type": "string"
+    },
+    {
+      "name": "guid",
+      "type": "string"
+    },
+        {
+      "name": "ts",
+      "type": "string"
+    },
+        {
+      "name": "uuid",
+      "type": "string"
+    }
+  ],
+  "name": "transitstatus",
+  "type": "record"
+}
