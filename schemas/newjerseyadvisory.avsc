@@ -15,7 +15,7 @@
    "type": ["string","null"]
   },
    {
-   "name": "pubDate",
+   "name": "pubdate",
    "type": ["string","null"]
   },
     {
